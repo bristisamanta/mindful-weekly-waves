@@ -1,6 +1,6 @@
 
 import html2pdf from "html2pdf.js";
-import { FilePdf, FileText } from "lucide-react";
+import { File } from "lucide-react";
 
 type Props = {
   getHtml?: () => HTMLElement | null;
@@ -37,7 +37,7 @@ export function ExportDownloadBar({ getHtml, getData }: Props) {
         aria-label="Export as PDF"
         type="button"
       >
-        <FilePdf className="mr-1" /> Export PDF
+        <File className="mr-1" /> Export PDF
       </button>
       <button
         className="flex items-center gap-1 bg-blue-100 text-blue-700 py-2 px-4 rounded shadow-lg font-semibold hover:bg-blue-200 transition animate-fade-in"
@@ -45,7 +45,7 @@ export function ExportDownloadBar({ getHtml, getData }: Props) {
         aria-label="Download as JSON"
         type="button"
       >
-        <FileText className="mr-1" /> Export Data
+        <File className="mr-1" /> Export Data
       </button>
     </div>
   );
