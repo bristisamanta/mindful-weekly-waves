@@ -52,12 +52,16 @@ export function MoodLineChart({ data }: { data: { day: string, mood: string, val
             dataKey="value"
             stroke="#a489ff"
             strokeWidth={3}
-            dot={{
-              r: 7,
-              stroke: "#fff",
-              strokeWidth: 2.5,
-              fill: ({ payload }: any) => moodScoreColorMap[payload.mood] || "#A7C7E7",
-            }}
+            dot={({ cx, cy, payload }) => (
+              <circle
+                cx={cx}
+                cy={cy}
+                r={7}
+                stroke="#fff"
+                strokeWidth={2.5}
+                fill={moodScoreColorMap[payload.mood] || "#A7C7E7"}
+              />
+            )}
             isAnimationActive
           />
         </LineChart>

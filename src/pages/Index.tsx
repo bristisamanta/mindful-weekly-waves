@@ -136,26 +136,17 @@ export default function Index() {
           onViewPast={() => window.alert("Past entries view coming soon!")}
           onViewCharts={focusCharts}
         />
-        <div className="flex justify-center my-3 gap-2">
-          {days.map((d, idx) => (
-            <button
-              key={d}
-              onClick={() => setCurrentDay(idx)}
-              className={`px-3 py-1 rounded-full mx-1 font-semibold transition ${
-                currentDay === idx
-                  ? "bg-primary text-white shadow"
-                  : "bg-gray-200 text-gray-500"
-              }`}
-            >
-              {d}
-            </button>
-          ))}
-        </div>
-        <MoodSelector
-          value={week[currentDay].mood as MoodType}
-          onChange={handleMood}
-        />
-        <div id="journal-editor-section">
+
+        {/* ⭐ Journal Entry Card Starts Here */}
+        <div className="glass-card mb-8 p-6 rounded-2xl animate-fade-in shadow-lg" style={{background: "linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%)", border: "1.5px solid #ebe6db" }}>
+          <h2 className="text-xl md:text-2xl text-[#C28FEF] font-bold flex items-center mb-2">
+            <span className="mr-2 text-2xl">🌸</span>How are you feeling today?
+          </h2>
+          <p className="text-base md:text-lg text-gray-600 mb-4">Take a deep breath. Let it out. Now, tell me how you’re feeling today.</p>
+          <MoodSelector
+            value={week[currentDay].mood as MoodType}
+            onChange={handleMood}
+          />
           <JournalEditor
             value={week[currentDay].notes}
             onChange={handleNotes}
@@ -163,7 +154,19 @@ export default function Index() {
             onAddTag={handleAddTag}
             onRemoveTag={handleRemoveTag}
           />
+          <button
+            className="mt-2 w-full py-3 px-6 rounded-lg text-lg font-bold bg-gradient-to-r from-pink-200 via-purple-200 to-blue-200 text-[#8249AF] shadow-md transition-all hover:scale-105 focus:scale-105 focus-visible:ring-2 active:scale-100 animate-saveButton"
+            type="button"
+            onClick={() => {
+              // Future: Save animation/feedback here
+            }}
+          >
+            Save Entry
+          </button>
+          {/* Future: Place for feedback animation */}
         </div>
+        {/* 📝 End journal card */}
+
         <div id="charts-section" className="grid grid-cols-1 md:grid-cols-3 gap-4 my-8">
           <MoodRadarChart data={radarData} />
           <MoodLineChart data={moodLineData} />
