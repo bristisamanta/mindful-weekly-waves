@@ -1,10 +1,10 @@
-
 import { useEffect, useState } from "react";
 import GenderModal from "@/components/GenderModal";
 import MoodSelector from "@/components/MoodSelector";
 import JournalEditor from "@/components/JournalEditor";
 import { MoodRadarChart, MoodLineChart, TagPieChart } from "@/components/MoodCharts";
 import { getJournalData, setJournalData } from "@/utils/storage";
+import WelcomeHeader from "@/components/WelcomeHeader";
 
 type MoodType = "happy" | "sad" | "neutral" | "love" | "angry" | "calm" | "excited" | "tired";
 
@@ -52,6 +52,16 @@ export default function Index() {
   useEffect(() => {
     setJournalData({ gender, week });
   }, [gender, week]);
+
+  // Modal "jumpers" - these will just focus the relevant section or set day, can be enhanced as needed
+  const focusEditor = () => {
+    const el = document.getElementById("journal-editor-section");
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+  const focusCharts = () => {
+    const el = document.getElementById("charts-section");
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   // Mood & Editor handlers
   const handleMood = (mood: MoodType) => {
@@ -112,7 +122,7 @@ export default function Index() {
   }));
 
   return (
-    <div className="min-h-screen bg-graySoft flex flex-col items-center py-10 px-4">
+    <div className="min-h-screen bg-gradient-to-b from-[#FFF0D6] via-[#F7E3F8] to-[#A7C7E7] flex flex-col items-center py-10 px-4">
       <GenderModal
         open={showGenderModal}
         onSelect={(g) => {
@@ -121,9 +131,11 @@ export default function Index() {
         }}
       />
       <div className="w-full max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-2 animate-fadeIn text-center">
-          Weekly Mental Health Journal
-        </h1>
+        <WelcomeHeader
+          onNewEntry={focusEditor}
+          onViewPast={() => window.alert("Past entries view coming soon!")}
+          onViewCharts={focusCharts}
+        />
         <div className="flex justify-center my-3 gap-2">
           {days.map((d, idx) => (
             <button
@@ -143,14 +155,16 @@ export default function Index() {
           value={week[currentDay].mood as MoodType}
           onChange={handleMood}
         />
-        <JournalEditor
-          value={week[currentDay].notes}
-          onChange={handleNotes}
-          tags={week[currentDay].tags}
-          onAddTag={handleAddTag}
-          onRemoveTag={handleRemoveTag}
-        />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-8">
+        <div id="journal-editor-section">
+          <JournalEditor
+            value={week[currentDay].notes}
+            onChange={handleNotes}
+            tags={week[currentDay].tags}
+            onAddTag={handleAddTag}
+            onRemoveTag={handleRemoveTag}
+          />
+        </div>
+        <div id="charts-section" className="grid grid-cols-1 md:grid-cols-3 gap-4 my-8">
           <MoodRadarChart data={radarData} />
           <MoodLineChart data={moodLineData} />
           <TagPieChart data={tagPieData} />

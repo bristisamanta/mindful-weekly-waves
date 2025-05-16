@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -22,3 +21,15 @@ body {
 .tag-badge {
   @apply inline-block bg-tag text-text rounded-full px-3 py-1 text-xs font-semibold mr-2 mb-2;
 }
+
+/* Soft color palette utility classes */
+.bg-palette-blue   { background: #A7C7E7 !important; }
+.bg-palette-pink   { background: #FFC9DE !important; }
+.bg-palette-lavender { background: #E4C1F9 !important; }
+.bg-palette-beige  { background: #FFF0D6 !important; }
+
+/* For menu buttons & accent sections */
+.text-palette-blue   { color: #A7C7E7 !important; }
+.text-palette-pink   { color: #FFC9DE !important; }
+.text-palette-lavender { color: #E4C1F9 !important; }
+.text-palette-beige  { color: #FFF0D6 !important; }

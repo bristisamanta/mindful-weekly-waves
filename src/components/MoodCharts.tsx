@@ -1,4 +1,3 @@
-
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Line, LineChart, XAxis, YAxis, Tooltip, PieChart, Pie, Cell, ResponsiveContainer, Legend } from "recharts";
 
 const moodColors: Record<string, string> = {
@@ -10,6 +9,17 @@ const moodColors: Record<string, string> = {
   calm: "#D6F5E3",
   excited: "#9b87f5",
   tired: "#F1F0FB",
+};
+
+const moodScoreColorMap: Record<string, string> = {
+  calm: "#56cfad",            // green
+  neutral: "#f7e713",         // yellow
+  angry: "#f95e61",           // red (stressful)
+  excited: "#a489ff",         // purple (energetic)
+  happy: "#FDE68A",           // yellow pastel
+  love: "#FFDEE2",            // soft pink
+  sad: "#B6E0FE",             // blue
+  tired: "#F1F0FB",           // lavender
 };
 
 export function MoodRadarChart({ data }: { data: { mood: string, value: number }[] }) {
@@ -38,7 +48,18 @@ export function MoodLineChart({ data }: { data: { day: string, mood: string, val
           <XAxis dataKey="day" />
           <YAxis domain={[0, 7]} />
           <Tooltip />
-          <Line dataKey="value" stroke="#9b87f5" strokeWidth={3} dot={{ r: 6 }} isAnimationActive />
+          <Line
+            dataKey="value"
+            stroke="#a489ff"
+            strokeWidth={3}
+            dot={{
+              r: 7,
+              stroke: "#fff",
+              strokeWidth: 2.5,
+              fill: ({ payload }: any) => moodScoreColorMap[payload.mood] || "#A7C7E7",
+            }}
+            isAnimationActive
+          />
         </LineChart>
       </ResponsiveContainer>
     </div>
