@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useRef } from "react";
 import GenderModal from "@/components/GenderModal";
 import MoodSelector from "@/components/MoodSelector";
@@ -11,6 +10,9 @@ import { ExportDownloadBar } from "@/components/ExportDownloadBar";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
 import { Info } from "lucide-react";
+import CalmingTips from "@/components/CalmingTips";
+import SongRecommendation from "@/components/SongRecommendation";
+import AdviceBot from "@/components/AdviceBot";
 
 type MoodType = "happy" | "sad" | "neutral" | "love" | "angry" | "calm" | "excited" | "tired";
 
@@ -157,6 +159,9 @@ export default function Index() {
           />
         )}
 
+        {/* Calming animated tips */}
+        <CalmingTips />
+
         {/* How to use this journal - instructions */}
         <Alert variant="default" className="mb-4 flex items-center bg-blue-50 border-blue-200">
           <Info className="mr-3 text-blue-400" />
@@ -211,6 +216,10 @@ export default function Index() {
           >
             Save Entry
           </button>
+          {/* Song Recommendation here */}
+          <SongRecommendation />
+          {/* AdviceBot here */}
+          <AdviceBot />
           {/* Future: Place for feedback animation */}
         </div>
         {/* 📝 End journal card */}
@@ -233,4 +242,3 @@ export default function Index() {
     </div>
   );
 }
-
