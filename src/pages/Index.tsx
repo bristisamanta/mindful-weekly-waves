@@ -1,3 +1,4 @@
+
 import { useEffect, useState, useRef } from "react";
 import GenderModal from "@/components/GenderModal";
 import MoodSelector from "@/components/MoodSelector";
@@ -7,6 +8,9 @@ import { getJournalData, setJournalData } from "@/utils/storage";
 import WelcomeHeader from "@/components/WelcomeHeader";
 import JournalTimeline from "@/components/JournalTimeline";
 import { ExportDownloadBar } from "@/components/ExportDownloadBar";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { useToast } from "@/hooks/use-toast";
+import { Info } from "lucide-react";
 
 type MoodType = "happy" | "sad" | "neutral" | "love" | "angry" | "calm" | "excited" | "tired";
 
@@ -51,6 +55,8 @@ export default function Index() {
   const [currentDay, setCurrentDay] = useState(getTodayIdx());
   const [showGenderModal, setShowGenderModal] = useState(gender === null);
   const [timelineOpen, setTimelineOpen] = useState(false);
+
+  const { toast } = useToast();
 
   useEffect(() => {
     setJournalData({ gender, week });
@@ -151,10 +157,28 @@ export default function Index() {
           />
         )}
 
+        {/* How to use this journal - instructions */}
+        <Alert variant="default" className="mb-4 flex items-center bg-blue-50 border-blue-200">
+          <Info className="mr-3 text-blue-400" />
+          <div>
+            <AlertTitle>How to use this journal</AlertTitle>
+            <AlertDescription>
+              <ol className="list-decimal ml-5 text-sm">
+                <li>Select your mood by clicking an emoji below.</li>
+                <li>Write your thoughts or feelings for today in the text box.</li>
+                <li>Add one or more tags to describe your day, or create your own.</li>
+                <li>Click <b>Save Entry</b> — you’ll get an instant calming message.</li>
+                <li>Review your past entries or download your journal for reflection.</li>
+              </ol>
+            </AlertDescription>
+          </div>
+        </Alert>
+
         {/* ⭐ Journal Entry Card Starts Here */}
         <div
           className="glass-card mb-8 p-6 rounded-2xl animate-fade-in shadow-lg"
           ref={journalCardRef}
+          id="journal-editor-section"
           style={{
             background: "linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%)",
             border: "1.5px solid #ebe6db"
@@ -179,7 +203,10 @@ export default function Index() {
             className="mt-2 w-full py-3 px-6 rounded-lg text-lg font-bold bg-gradient-to-r from-pink-200 via-purple-200 to-blue-200 text-[#8249AF] shadow-md transition-all hover:scale-105 focus:scale-105 focus-visible:ring-2 active:scale-100 animate-saveButton"
             type="button"
             onClick={() => {
-              // Future: Save animation/feedback here
+              toast({
+                title: "Nice job checking in today! 🌱",
+                description: "You took a moment for yourself. Remember, small steps matter.",
+              });
             }}
           >
             Save Entry
@@ -206,3 +233,4 @@ export default function Index() {
     </div>
   );
 }
+
