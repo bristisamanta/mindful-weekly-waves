@@ -2,10 +2,9 @@
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/836a511a-eb45-4834-a11b-7eb954eaa86d
 
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+
 
 Follow these steps:
 
